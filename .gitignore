@@ -1,0 +1,31 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+flutter_frontend/node_modules
+flutter_frontend/.pnp
+flutter_frontend/.pnp.js
+
+# testing
+flutter_frontend/coverage
+
+# production
+flutter_frontend/build
+
+# misc
+flutter_frontend/.DS_Store
+flutter_frontend/.env.local
+flutter_frontend/.env.development.local
+flutter_frontend/.env.test.local
+flutter_frontend/.env.production.local
+
+flutter_frontend/npm-debug.log*
+flutter_frontend/yarn-debug.log*
+flutter_frontend/yarn-error.log*
+flutter_frontend/.package-lock.json
+flutter_frontend/package-lock.json
+flutter_frontend/*.lock
+flutter_frontend/*.yaml
+flutter_frontend/*.metadata
+
+goBackend/*.mod
+goBackend/*.sum
