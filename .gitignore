@@ -27,5 +27,4 @@ flutter_frontend/*.lock
 flutter_frontend/*.yaml
 flutter_frontend/*.metadata
 
-goBackend/*.mod
 goBackend/*.sum

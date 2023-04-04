@@ -13,9 +13,9 @@ class Product {
 
   factory Product.fromJson(Map json) {
     return Product(
-        id: json['id'],
-        name: json['name'],
-        description: json['description'],
-        price: json['price']);
+        id: json['Id'],
+        name: json['Name'],
+        description: json['Description'],
+        price: json['Price']);
   }
 }
