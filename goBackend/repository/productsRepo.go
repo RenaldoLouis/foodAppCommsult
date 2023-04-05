@@ -23,7 +23,6 @@ const (
 	collectionname string = "products"
 )
 
-//NewProductRepository
 func NewProductRepository() ProductsRepository {
 	return &repo{}
 }
@@ -63,7 +62,6 @@ func (*repo) FindAll() ([]entity.Product, error) {
 
 	defer client.Close()
 	var products []entity.Product
-	// iterator := client.Collection(collectionname).Documents(ctx)
 
 	collectionRef := client.Collection(collectionname)
 
@@ -83,19 +81,5 @@ func (*repo) FindAll() ([]entity.Product, error) {
 		}
 		products = append(products, product)
 	}
-	// for {
-	// 	doc, err := iterator.Next()
-	// 	if err != nil {
-	// 		log.Fatalf("Failed iterate value of products: %v", err)
-	// 		return nil, err
-	// 	}
-	// 	product := entity.Product{
-	// 		Description: doc.Data()["Description"].(string),
-	// 		Id:          doc.Data()["Id"].(int64),
-	// 		Name:        doc.Data()["Name"].(string),
-	// 		Price:       doc.Data()["Price"].(int64),
-	// 	}
-	// 	products = append(products, product)
-	// }
 	return products, nil
 }
