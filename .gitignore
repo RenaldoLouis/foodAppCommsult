@@ -29,5 +29,3 @@ flutter_frontend/*.cc
 flutter_frontend/*.h
 flutter_frontend/windows
 flutter_frontend/windows/flutter
-
-goBackend/*.sum
