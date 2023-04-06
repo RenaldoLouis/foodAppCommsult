@@ -5,10 +5,10 @@ class Product {
   final int price;
 
   const Product({
-    this.id,
-    this.name,
-    this.description,
-    this.price,
+    this.id = 0,
+    this.name = "",
+    this.description = "",
+    this.price = 0,
   });
 
   factory Product.fromJson(Map json) {

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/product_service.dart';
 import 'package:flutter_frontend/product_model.dart';
+import 'package:flutter_frontend/utils/riverUtils.dart';
 import 'package:rive/rive.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final _productService = ProductService();
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  final _productService = ProductService();
+  late SMIBool userTrigger;
   @override
   Widget build(BuildContext context) {
     const title = 'Product List';
@@ -30,7 +36,24 @@ class MyApp extends StatelessWidget {
             ),
             child: Row(
               children: [
-                RiveAnimation.asset("assets/RiveAssets/home.riv"),
+                GestureDetector(
+                  onTap: () {
+                    userTrigger.change(true);
+                  },
+                  child: SizedBox(
+                    height: 36,
+                    width: 36,
+                    child: RiveAnimation.asset(
+                      "assets/RiveAssets/user.riv",
+                      onInit: (artboard) {
+                        StateMachineController controller =
+                            RiveUtils.getRiveController(artboard,
+                                stateMachineName: "USER_Interactivity");
+                        userTrigger = controller.findSMI("active") as SMIBool;
+                      },
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -52,9 +75,10 @@ class MyApp extends StatelessWidget {
               itemBuilder: (context, index) {
                 var product = products[index];
                 return ListTile(
-                    title: Text(products[index].name),
-                    subtitle: Text('#${product.id} ${product.description}'),
-                    trailing: Text('\$${product.price}'));
+                  title: Text(products[index].name),
+                  subtitle: Text('#${product.id} ${product.description}'),
+                  trailing: Text('\$${product.price}'),
+                );
               },
             );
           },
