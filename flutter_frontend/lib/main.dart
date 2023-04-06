@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/product_service.dart';
 import 'package:flutter_frontend/product_model.dart';
+import 'package:rive/rive.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,23 @@ class MyApp extends StatelessWidget {
       title: title,
       // theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
       home: Scaffold(
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.only(left: 24, right: 25, bottom: 2),
+            decoration: BoxDecoration(
+              color: Colors.black87,
+              borderRadius: BorderRadius.all(
+                Radius.circular(24),
+              ),
+            ),
+            child: Row(
+              children: [
+                RiveAnimation.asset("assets/RiveAssets/home.riv"),
+              ],
+            ),
+          ),
+        ),
         appBar: AppBar(
           title: const Text(title),
         ),

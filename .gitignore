@@ -24,7 +24,10 @@ flutter_frontend/yarn-error.log*
 flutter_frontend/.package-lock.json
 flutter_frontend/package-lock.json
 flutter_frontend/*.lock
-flutter_frontend/*.yaml
 flutter_frontend/*.metadata
+flutter_frontend/*.cc
+flutter_frontend/*.h
+flutter_frontend/windows
+flutter_frontend/windows/flutter
 
 goBackend/*.sum
