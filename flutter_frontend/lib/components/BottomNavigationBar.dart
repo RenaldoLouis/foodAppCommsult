@@ -4,8 +4,17 @@ import 'package:rive/rive.dart';
 
 import '../components/AnimatedBar.dart';
 import '../models/RiveAssets.dart';
+import 'dart:developer';
 
 class BottomNavigationBarCustom extends StatefulWidget {
+  int selectedIndex;
+  void Function(int) onItemTapped;
+  BottomNavigationBarCustom({
+    Key? key,
+    this.selectedIndex = 0,
+    required this.onItemTapped,
+  }) : super(key: key);
+
   @override
   State<BottomNavigationBarCustom> createState() =>
       _BottomNavigationbarCustomState();
@@ -13,7 +22,6 @@ class BottomNavigationBarCustom extends StatefulWidget {
 
 class _BottomNavigationbarCustomState extends State<BottomNavigationBarCustom> {
   RiveAsset selectedBottomNav = bottomNavs.first;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,8 +49,9 @@ class _BottomNavigationbarCustomState extends State<BottomNavigationBarCustom> {
                 Future.delayed(Duration(seconds: 1), () {
                   bottomNavs[index].input!.change(false);
                 });
-                Navigator.pushReplacementNamed(
-                    context, '/${bottomNavs[index].title}');
+                // Navigator.pushReplacementNamed(
+                //     context, '/${bottomNavs[index].title}');
+                widget.onItemTapped(index);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
