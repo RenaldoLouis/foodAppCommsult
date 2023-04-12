@@ -5,9 +5,9 @@ class Userpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SafeArea(
-        child: BottomNavigationBarCustom(),
-      ),
+      // bottomNavigationBar: SafeArea(
+      //   child: BottomNavigationBarCustom(),
+      // ),
       appBar: AppBar(
         title: Text('Userpage'),
       ),

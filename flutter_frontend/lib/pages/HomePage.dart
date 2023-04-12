@@ -25,9 +25,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
       body: Scaffold(
-        bottomNavigationBar: SafeArea(
-          child: BottomNavigationBarCustom(),
-        ),
+        // bottomNavigationBar: SafeArea(
+        //   child: BottomNavigationBarCustom(),
+        // ),
         appBar: AppBar(
           title: const Text(title),
         ),

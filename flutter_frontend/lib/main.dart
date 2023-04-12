@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/pages/BellPage.dart';
 import 'package:flutter_frontend/pages/ChatPage.dart';
+import 'package:flutter_frontend/pages/ContainerApp.dart';
 import 'package:flutter_frontend/pages/HomePage.dart';
 import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       },
       title: title,
       // theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: HomePage(),
+      home: ContainerApp(),
     );
   }
 }
