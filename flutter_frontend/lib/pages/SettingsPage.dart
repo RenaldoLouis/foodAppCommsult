@@ -9,6 +9,7 @@ class SettingsPage extends StatelessWidget {
       //   child: BottomNavigationBarCustom(),
       // ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Settings Page'),
       ),
       body: Center(

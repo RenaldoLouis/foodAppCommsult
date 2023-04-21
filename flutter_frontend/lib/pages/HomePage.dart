@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
         //   child: BottomNavigationBarCustom(),
         // ),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(title),
         ),
         body: FutureBuilder<List<Product>>(

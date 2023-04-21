@@ -9,6 +9,7 @@ class BellPage extends StatelessWidget {
       //   child: BottomNavigationBarCustom(),
       // ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('BellPage'),
       ),
       body: Center(

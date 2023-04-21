@@ -9,6 +9,7 @@ class Userpage extends StatelessWidget {
       //   child: BottomNavigationBarCustom(),
       // ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Userpage'),
       ),
       body: Center(

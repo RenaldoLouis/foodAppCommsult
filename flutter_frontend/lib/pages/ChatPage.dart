@@ -9,6 +9,7 @@ class ChatPage extends StatelessWidget {
       //   child: BottomNavigationBarCustom(),
       // ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('ChatPage'),
       ),
       body: Center(
