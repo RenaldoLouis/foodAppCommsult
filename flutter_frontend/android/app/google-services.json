@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "834513047240",
+    "project_id": "commsulteat",
+    "storage_bucket": "commsulteat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834513047240:android:7a2ca9c7cd20f40634dffd",
+        "android_client_info": {
+          "package_name": "com.example.flutter_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834513047240-1f5ucg5era1rk9auinvmkhscsgfekf75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8-scIjArA5yNI2dZhGZwqQb4zd_fJ8TI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834513047240-1f5ucg5era1rk9auinvmkhscsgfekf75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
