@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/utils/riveUtils.dart';
+import '../../utils/riveUtils.dart';
 import 'package:rive/rive.dart';
 
 import '../components/AnimatedBar.dart';

@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
+import 'package:flutter_frontend/pages/LoginPage.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -15,9 +18,14 @@ class SettingsPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+            FirebaseAuth.instance.signOut();
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+              ),
+            );
           },
-          child: Text('Tap Untuk ke AboutPage'),
+          child: Text('Signout'),
         ),
       ),
     );

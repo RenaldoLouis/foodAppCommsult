@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_frontend/pages/ContainerApp.dart';
+import 'package:flutter_frontend/pages/LoginPage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
                   (value) => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ContainerApp(),
+                      builder: (context) => LoginPage(),
                     ),
                   ),
                 );

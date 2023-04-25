@@ -8,7 +8,6 @@ import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
 import 'package:flutter_frontend/product_service.dart';
 import 'package:flutter_frontend/product_model.dart';
-import 'package:flutter_frontend/utils/riveUtils.dart';
 import 'package:rive/rive.dart';
 
 import 'components/AnimatedBar.dart';
@@ -35,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/home': (context) => HomePage(),
-        '/user': (context) => Userpage(),
+        // '/user': (context) => Userpage(),
         '/settings': (context) => SettingsPage(),
         '/bell': (context) => BellPage(),
         '/chat': (context) => ChatPage(),

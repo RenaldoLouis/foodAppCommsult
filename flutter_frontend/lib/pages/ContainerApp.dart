@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/AnimatedBar.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
@@ -7,11 +8,17 @@ import 'package:flutter_frontend/pages/ChatPage.dart';
 import 'package:flutter_frontend/pages/HomePage.dart';
 import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
-import 'package:flutter_frontend/utils/riveUtils.dart';
 import 'package:rive/rive.dart';
 import 'dart:developer';
 
 class ContainerApp extends StatefulWidget {
+  User? user;
+
+  ContainerApp({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
   @override
   State<ContainerApp> createState() => _ContainerAppState();
 }
@@ -20,10 +27,12 @@ class _ContainerAppState extends State<ContainerApp> {
   RiveAsset selectedBottomNav = bottomNavs.first;
 
   int _currentIndex = 0;
-  final List<Widget> _pages = [
+  late final List<Widget> _pages = [
     HomePage(),
     ChatPage(),
-    Userpage(),
+    Userpage(
+      user: widget.user,
+    ),
     BellPage(),
     SettingsPage(),
   ];

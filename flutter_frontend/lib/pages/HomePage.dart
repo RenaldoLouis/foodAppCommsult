@@ -3,7 +3,6 @@ import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
 import 'package:flutter_frontend/product_service.dart';
 import 'package:flutter_frontend/product_model.dart';
-import 'package:flutter_frontend/utils/riveUtils.dart';
 import 'package:rive/rive.dart';
 
 import '../components/AnimatedBar.dart';
@@ -23,11 +22,7 @@ class _HomePageState extends State<HomePage> {
     const title = 'Product List';
 
     return Scaffold(
-      // theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
       body: Scaffold(
-        // bottomNavigationBar: SafeArea(
-        //   child: BottomNavigationBarCustom(),
-        // ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text(title),
