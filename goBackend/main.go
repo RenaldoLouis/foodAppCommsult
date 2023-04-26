@@ -1,7 +1,9 @@
 package main
 
 import (
+	"go_backend/config"
 	"go_backend/entity"
+	"go_backend/middleware"
 	"go_backend/repository"
 	"net/http"
 
@@ -37,6 +39,21 @@ func saveProductsHandler(c *gin.Context) {
 func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
+
+	// configure firebase
+	firebaseAuth := config.SetupFirebase()
+
+	// create configure database instance
+	db := config.CreateDatabase()
+
+	// set db to gin context with a middleware to all incoming request
+	r.Use(func(c *gin.Context) {
+		c.Set("db", db)
+		c.Set("firebaseAuth", firebaseAuth)
+	})
+
+	r.Use(middleware.AuthMiddleware)
+
 	r.GET("/products", productsHandler)
 	r.POST("/products", saveProductsHandler)
 	r.Run(":5000")
