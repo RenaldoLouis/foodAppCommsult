@@ -44,11 +44,11 @@ func main() {
 	firebaseAuth := config.SetupFirebase()
 
 	// create configure database instance
-	db := config.CreateDatabase()
+	// db := config.CreateDatabase()
 
 	// set db to gin context with a middleware to all incoming request
 	r.Use(func(c *gin.Context) {
-		c.Set("db", db)
+		// c.Set("db", db)
 		c.Set("firebaseAuth", firebaseAuth)
 	})
 

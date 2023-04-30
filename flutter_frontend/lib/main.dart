@@ -23,7 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _productService = ProductService();
   RiveAsset selectedBottomNav = bottomNavs.first;
 
   @override
