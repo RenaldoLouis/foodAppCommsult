@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
-import 'package:flutter_frontend/pages/LoginPage.dart';
+import 'package:flutter_frontend/pages/Login/login_screen.dart';
 import 'package:flutter_frontend/utils/fire_auth.dart';
 
 class Userpage extends StatefulWidget {
@@ -110,7 +110,7 @@ class _UserpageState extends State<Userpage> {
                       });
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => LoginPage(),
+                          builder: (context) => LoginScreen(),
                         ),
                       );
                     },
