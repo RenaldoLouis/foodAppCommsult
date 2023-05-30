@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
 import '../../Signup/signup_screen.dart';
+import 'package:flutter_frontend/components/RoundedButton.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({
@@ -11,11 +12,14 @@ class LoginAndSignupBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Hero(
-          tag: "login_btn",
-          child: ElevatedButton(
+        Container(
+          width: size.width,
+          height: 50,
+          child: RoundedButton(
+            backgroundColor: kPrimaryColor,
             onPressed: () {
               Navigator.push(
                 context,
@@ -26,28 +30,28 @@ class LoginAndSignupBtn extends StatelessWidget {
                 ),
               );
             },
-            child: Text(
-              "Login".toUpperCase(),
-            ),
+            text: "Login",
+            textColor: Colors.white,
           ),
         ),
         const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return SignUpScreen();
-                },
-              ),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-              primary: kPrimaryLightColor, elevation: 0),
-          child: Text(
-            "Sign Up".toUpperCase(),
-            style: TextStyle(color: Colors.black),
+        Container(
+          width: size.width,
+          height: 50,
+          child: RoundedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SignUpScreen();
+                  },
+                ),
+              );
+            },
+            backgroundColor: kPrimaryLightColor,
+            text: "Sign up",
+            textColor: Colors.black,
           ),
         ),
       ],

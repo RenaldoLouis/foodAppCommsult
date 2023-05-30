@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/pages/ContainerApp.dart';
-import 'package:flutter_frontend/pages/responsive.dart';
+import 'package:flutter_frontend/models/responsive.dart';
 
 import '../../components/background.dart';
 import 'components/login_signup_btn.dart';
