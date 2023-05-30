@@ -68,41 +68,49 @@ class _LoginFormState extends State<LoginForm> {
               key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
-                    controller: _emailTextController,
-                    focusNode: _focusEmail,
-                    validator: (value) => Validator.validateEmail(
-                      email: value,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: kPrimaryLightColor,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    cursorColor: kPrimaryColor,
-                    onSaved: (email) {},
-                    decoration: InputDecoration(
-                      hintText: "Your email",
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(defaultPadding),
-                        child: Icon(Icons.person),
+                    child: TextFormField(
+                      controller: _emailTextController,
+                      focusNode: _focusEmail,
+                      validator: (value) => Validator.validateEmail(
+                        email: value,
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      cursorColor: kPrimaryColor,
+                      onSaved: (email) {},
+                      decoration: InputDecoration(
+                        hintText: "Your email",
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.person),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: defaultPadding),
-                    child: TextFormField(
-                      controller: _passwordTextController,
-                      focusNode: _focusPassword,
-                      validator: (value) => Validator.validatePassword(
-                        password: value,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kPrimaryLightColor,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      textInputAction: TextInputAction.done,
-                      obscureText: true,
-                      cursorColor: kPrimaryColor,
-                      decoration: InputDecoration(
-                        hintText: "Your password",
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(defaultPadding),
-                          child: Icon(Icons.lock),
+                      child: TextFormField(
+                        controller: _passwordTextController,
+                        focusNode: _focusPassword,
+                        validator: (value) => Validator.validatePassword(
+                          password: value,
+                        ),
+                        textInputAction: TextInputAction.done,
+                        obscureText: true,
+                        cursorColor: kPrimaryColor,
+                        decoration: InputDecoration(
+                          hintText: "Your password",
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.lock),
                         ),
                       ),
                     ),

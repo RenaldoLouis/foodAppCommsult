@@ -35,45 +35,56 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _registerFormKey,
       child: Column(
         children: [
-          TextFormField(
-            controller: _nameTextController,
-            focusNode: _focusName,
-            validator: (value) => Validator.validateName(
-              name: value,
+          Container(
+            decoration: BoxDecoration(
+              color: kPrimaryLightColor,
+              borderRadius: BorderRadius.circular(20),
             ),
-            keyboardType: TextInputType.name,
-            textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
-            onSaved: (email) {},
-            decoration: InputDecoration(
-              hintText: "Name",
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+            child: TextFormField(
+              controller: _nameTextController,
+              focusNode: _focusName,
+              validator: (value) => Validator.validateName(
+                name: value,
+              ),
+              keyboardType: TextInputType.name,
+              textInputAction: TextInputAction.next,
+              cursorColor: kPrimaryColor,
+              onSaved: (email) {},
+              decoration: InputDecoration(
+                hintText: "Name",
+                border: InputBorder.none,
+                prefixIcon: Icon(Icons.person),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-            child: TextFormField(
-              controller: _emailTextController,
-              focusNode: _focusEmail,
-              validator: (value) => Validator.validateEmail(
-                email: value,
+            child: Container(
+              decoration: BoxDecoration(
+                color: kPrimaryLightColor,
+                borderRadius: BorderRadius.circular(20),
               ),
-              textInputAction: TextInputAction.done,
-              cursorColor: kPrimaryColor,
-              decoration: InputDecoration(
-                hintText: "Your Email",
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.email),
+              child: TextFormField(
+                controller: _emailTextController,
+                focusNode: _focusEmail,
+                validator: (value) => Validator.validateEmail(
+                  email: value,
+                ),
+                textInputAction: TextInputAction.done,
+                cursorColor: kPrimaryColor,
+                decoration: InputDecoration(
+                  hintText: "Your Email",
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.email),
                 ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+          Container(
+            decoration: BoxDecoration(
+              color: kPrimaryLightColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
             child: TextFormField(
               controller: _passwordTextController,
               focusNode: _focusPassword,
@@ -85,10 +96,8 @@ class _SignUpFormState extends State<SignUpForm> {
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
                 hintText: "Your password",
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
-                ),
+                border: InputBorder.none,
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
           ),
