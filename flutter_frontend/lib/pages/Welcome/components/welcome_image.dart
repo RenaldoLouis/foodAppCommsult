@@ -16,7 +16,7 @@ class WelcomeImage extends StatelessWidget {
           "WELCOME TO OFFCOM",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: defaultPadding * 2),
+        // SizedBox(height: defaultPadding * 2),
         Row(
           children: [
             Spacer(),
@@ -29,7 +29,7 @@ class WelcomeImage extends StatelessWidget {
             Spacer(),
           ],
         ),
-        SizedBox(height: defaultPadding * 2),
+        // SizedBox(height: defaultPadding * 2),
       ],
     );
   }
