@@ -10,7 +10,7 @@ import (
 )
 
 func SetupFirebase() *auth.Client {
-	serviceAccountKeyFilePath, err := filepath.Abs("E:/Work/foodAppCommsult/goBackend/commsulteat-firebase-adminsdk-ogpvz-2d2c8944eb.json")
+	serviceAccountKeyFilePath, err := filepath.Abs("../goBackend/commsulteat-firebase-adminsdk-ogpvz-2d2c8944eb.json")
 	if err != nil {
 		panic("Unable to load serviceAccountKeys.json file")
 	}

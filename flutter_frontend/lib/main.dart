@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/pages/BellPage.dart';
 import 'package:flutter_frontend/pages/ChatPage.dart';
@@ -13,7 +14,11 @@ import 'package:rive/rive.dart';
 import 'components/AnimatedBar.dart';
 import 'models/RiveAssets.dart';
 
-void main() {
+void main() async {
+  // Initialize Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
