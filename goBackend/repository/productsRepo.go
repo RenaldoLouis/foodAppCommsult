@@ -29,7 +29,7 @@ func NewProductRepository() ProductsRepository {
 
 func (*repo) Save(product *entity.Product) (*entity.Product, error) {
 	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, projectId, option.WithCredentialsFile("E:/Work/foodAppCommsult/goBackend/commsulteat-firebase-adminsdk-ogpvz-2d2c8944eb.json"))
+	client, err := firestore.NewClient(ctx, projectId, option.WithCredentialsFile("../goBackend/commsulteat-firebase-adminsdk-ogpvz-2d2c8944eb.json"))
 
 	if err != nil {
 		log.Fatalf("Failed to create a Firestore Client: %v", err)
@@ -53,7 +53,7 @@ func (*repo) Save(product *entity.Product) (*entity.Product, error) {
 
 func (*repo) FindAll() ([]entity.Product, error) {
 	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, projectId, option.WithCredentialsFile("E:/Work/foodAppCommsult/goBackend/commsulteat-firebase-adminsdk-ogpvz-2d2c8944eb.json"))
+	client, err := firestore.NewClient(ctx, projectId, option.WithCredentialsFile("../goBackend/commsulteat-firebase-adminsdk-ogpvz-2d2c8944eb.json"))
 
 	if err != nil {
 		log.Fatalf("Failed to create a Firestore Client: %v", err)

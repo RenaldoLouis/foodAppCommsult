@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_frontend/product_model.dart';
@@ -12,12 +14,20 @@ _token() async {
 }
 
 class ProductService {
-  final String productsURL = 'http://10.0.2.2:5000/products';
   final Dio dio = Dio();
 
   ProductService();
 
   Future<List<Product>> getProducts() async {
+    String productsURL = '';
+    if (Platform.isAndroid) {
+      productsURL = 'http://10.0.2.2:5000/products';
+      // Android-specific code
+    } else if (Platform.isIOS) {
+      productsURL = 'http://127.0.0.1:5001/products';
+      // iOS-specific code
+    }
+
     Map<String, dynamic> header = {
       'Authorization': await _token(),
     };
