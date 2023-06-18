@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_frontend/product_model.dart';
+import 'package:flutter_frontend/models/product_model.dart';
 import 'dart:developer' as logger;
 
 _token() async {
@@ -21,7 +21,7 @@ class ProductService {
   Future<List<Product>> getProducts() async {
     String productsURL = '';
     if (Platform.isAndroid) {
-      productsURL = 'http://10.0.2.2:5000/products';
+      productsURL = 'http://10.0.2.2:5001/products';
       // Android-specific code
     } else if (Platform.isIOS) {
       productsURL = 'http://127.0.0.1:5001/products';

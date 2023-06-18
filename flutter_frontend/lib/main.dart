@@ -7,8 +7,8 @@ import 'package:flutter_frontend/pages/SplashScreen.dart';
 import 'package:flutter_frontend/pages/HomePage.dart';
 import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
-import 'package:flutter_frontend/product_service.dart';
-import 'package:flutter_frontend/product_model.dart';
+import 'package:flutter_frontend/services/product_service.dart';
+import 'package:flutter_frontend/models/product_model.dart';
 import 'package:rive/rive.dart';
 
 import 'components/AnimatedBar.dart';
@@ -36,13 +36,13 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        '/home': (context) => HomePage(),
-        // '/user': (context) => Userpage(),
-        '/settings': (context) => SettingsPage(),
-        '/bell': (context) => BellPage(),
-        '/chat': (context) => ChatPage(),
-      },
+      // routes: <String, WidgetBuilder>{
+      //   '/home': (context) => HomePage(),
+      //   '/user': (context) => Userpage(),
+      //   '/settings': (context) => SettingsPage(),
+      //   '/bell': (context) => BellPage(),
+      //   '/chat': (context) => ChatPage(),
+      // },
       title: title,
       home: SplashScreen(),
     );

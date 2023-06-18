@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/pages/ContainerApp.dart';
 import 'package:flutter_frontend/utils/Validator.dart';
 import 'package:flutter_frontend/utils/fire_auth.dart';
+import 'dart:developer' as logger;
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -138,6 +139,10 @@ class _LoginFormState extends State<LoginForm> {
                                   _isProcessing = false;
                                 });
 
+                                var idTokenResult =
+                                    await user?.getIdTokenResult(true);
+                                logger.log(
+                                    "idTokenResult ${idTokenResult?.claims}");
                                 if (user != null) {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
