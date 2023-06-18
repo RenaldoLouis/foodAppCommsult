@@ -12,14 +12,27 @@ import (
 )
 
 var (
-	repo repository.ProductsRepository = repository.NewProductRepository()
+	productRepo repository.ProductsRepository = repository.NewProductRepository()
+	userRepo    repository.UsersRepository    = repository.NewUsersRepository()
 )
 
 func productsHandler(c *gin.Context) {
-	products, _ := repo.FindAll()
+	products, _ := productRepo.FindAll()
 
 	c.JSON(200, gin.H{
 		"products": products,
+	})
+}
+
+func userRoleHandler(c *gin.Context) {
+	var data entity.User
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+		return
+	}
+	userRepo.SetUserRole(&data)
+	c.JSON(200, gin.H{
+		"message": "succes set User Role",
 	})
 }
 
@@ -29,7 +42,7 @@ func saveProductsHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 		return
 	}
-	products, _ := repo.Save(&data)
+	products, _ := productRepo.Save(&data)
 
 	c.JSON(200, gin.H{
 		"products": products,
@@ -52,9 +65,11 @@ func main() {
 		c.Set("firebaseAuth", firebaseAuth)
 	})
 
-	r.Use(middleware.AuthMiddleware)
+	r.POST("/userRole", userRoleHandler)
 
-	r.GET("/products", productsHandler)
-	r.POST("/products", saveProductsHandler)
+	// r.Use(middleware.AuthMiddleware)
+	authRoutes := r.Group("/").Use(middleware.AuthMiddleware)
+	authRoutes.GET("/products", productsHandler)
+	authRoutes.POST("/products", saveProductsHandler)
 	r.Run(":5001")
 }

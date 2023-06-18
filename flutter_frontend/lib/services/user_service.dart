@@ -13,16 +13,16 @@ _token() async {
   return 'Bearer $token';
 }
 
-class ProductService {
+class UserService {
   final Dio dio = Dio();
 
-  Future<List<Product>> getProducts() async {
-    String productsURL = '';
+  Future setUserRole(userInput) async {
+    String userRoleURL = '';
     if (Platform.isAndroid) {
-      productsURL = 'http://10.0.2.2:5001/products';
+      userRoleURL = 'http://10.0.2.2:5001/userRole';
       // Android-specific code
     } else if (Platform.isIOS) {
-      productsURL = 'http://127.0.0.1:5001/products';
+      userRoleURL = 'http://127.0.0.1:5001/userRole';
       // iOS-specific code
     }
 
@@ -30,19 +30,14 @@ class ProductService {
       'Authorization': await _token(),
     };
 
-    List<Product> products;
     try {
-      final res = await dio.get(productsURL, options: Options(headers: header));
-      products = res.data['products']
-          .map<Product>(
-            (item) => Product.fromJson(item),
-          )
-          .toList();
+      final res = await dio.post(userRoleURL,
+          data: userInput, options: Options(headers: header));
+      logger.log('Succes set User Roles $res');
     } on DioError catch (e) {
-      products = [];
-      logger.log('error get Products: ${e.response?.data}');
+      logger.log('error Set user Roles: ${e.response?.data}');
     }
 
-    return products;
+    return null;
   }
 }

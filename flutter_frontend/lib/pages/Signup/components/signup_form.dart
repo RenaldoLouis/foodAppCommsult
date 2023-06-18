@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/services/user_service.dart';
 import 'package:flutter_frontend/utils/Validator.dart';
 import 'package:flutter_frontend/utils/fire_auth.dart';
 
@@ -17,6 +18,12 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  final _productService = UserService();
+  Map<String, dynamic> userData = {
+    "UID": "",
+    "Role": "user",
+  };
+
   final _registerFormKey = GlobalKey<FormState>();
 
   final _nameTextController = TextEditingController();
@@ -121,6 +128,9 @@ class _SignUpFormState extends State<SignUpForm> {
                       setState(() {
                         _isProcessing = false;
                       });
+                      userData["UID"] = user?.uid;
+
+                      _productService.setUserRole(userData);
 
                       if (user != null) {
                         Navigator.of(context).pushAndRemoveUntil(
