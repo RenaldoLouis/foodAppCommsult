@@ -139,9 +139,6 @@ class _LoginFormState extends State<LoginForm> {
                                   _isProcessing = false;
                                 });
 
-                                var idTokenResult =
-                                    await user?.getIdTokenResult(true);
-
                                 if (user != null) {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(

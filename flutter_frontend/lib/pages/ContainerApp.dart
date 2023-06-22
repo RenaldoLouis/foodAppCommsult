@@ -28,7 +28,9 @@ class _ContainerAppState extends State<ContainerApp> {
 
   int _currentIndex = 0;
   late final List<Widget> _pages = [
-    HomePage(),
+    HomePage(
+      user: widget.user,
+    ),
     ChatPage(),
     Userpage(
       user: widget.user,

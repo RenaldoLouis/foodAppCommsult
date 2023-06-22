@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
@@ -7,8 +8,16 @@ import 'package:rive/rive.dart';
 
 import '../components/AnimatedBar.dart';
 import '../models/RiveAssets.dart';
+import 'dart:developer' as logger;
 
 class HomePage extends StatefulWidget {
+  final User? user;
+
+  HomePage({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -16,39 +25,55 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _productService = ProductService();
   RiveAsset selectedBottomNav = bottomNavs.first;
+  var idTokenResult;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var tempIdTokenResult = await widget.user?.getIdTokenResult(true);
+      setState(() {
+        idTokenResult = tempIdTokenResult;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     const title = 'Product List';
-
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text(title),
         ),
-        body: FutureBuilder<List<Product>>(
-          future: _productService.getProducts(),
-          builder: (context, snapshot) {
-            var products = snapshot.data ?? [];
+        body: idTokenResult?.claims['role'] == "user"
+            ? Container(
+                child: Text("asd"),
+              )
+            : FutureBuilder<List<Product>>(
+                future: _productService.getProducts(),
+                builder: (context, snapshot) {
+                  var products = snapshot.data ?? [];
 
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-            return ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                var product = products[index];
-                return ListTile(
-                  title: Text(products[index].name),
-                  subtitle: Text('#${product.id} ${product.description}'),
-                  trailing: Text('\$${product.price}'),
-                );
-              },
-            );
-          },
-        ),
+                  return ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      var product = products[index];
+                      return ListTile(
+                        title: Text(products[index].name),
+                        subtitle: Text('#${product.id} ${product.description}'),
+                        trailing: Text('\$${product.price}'),
+                      );
+                    },
+                  );
+                },
+              ),
       ),
     );
   }
