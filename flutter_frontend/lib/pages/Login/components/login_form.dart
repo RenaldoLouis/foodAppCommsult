@@ -40,6 +40,8 @@ class _LoginFormState extends State<LoginForm> {
 
   bool _isProcessing = true;
 
+  bool _errorLogin = false;
+
   final _formKey = GlobalKey<FormState>();
 
   final _emailTextController = TextEditingController();
@@ -71,23 +73,32 @@ class _LoginFormState extends State<LoginForm> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: kPrimaryLightColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: TextFormField(
                       controller: _emailTextController,
                       focusNode: _focusEmail,
-                      validator: (value) => Validator.validateEmail(
-                        email: value,
-                      ),
+                      validator: (value) => _errorLogin
+                          ? "Invalid Email / password"
+                          : Validator.validateEmail(
+                              email: value,
+                            ),
+                      onTap: () {
+                        _errorLogin = false;
+                      },
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       cursorColor: kPrimaryColor,
                       onSaved: (email) {},
                       decoration: InputDecoration(
                         hintText: "Your email",
-                        border: InputBorder.none,
                         prefixIcon: Icon(Icons.person),
+                        filled: true,
+                        fillColor: kPrimaryLightColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
                   ),
@@ -96,22 +107,31 @@ class _LoginFormState extends State<LoginForm> {
                         const EdgeInsets.symmetric(vertical: defaultPadding),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextFormField(
                         controller: _passwordTextController,
                         focusNode: _focusPassword,
-                        validator: (value) => Validator.validatePassword(
-                          password: value,
-                        ),
+                        validator: (value) => _errorLogin
+                            ? "Invalid Email / password"
+                            : Validator.validatePassword(
+                                password: value,
+                              ),
+                        onTap: () {
+                          _errorLogin = false;
+                        },
                         textInputAction: TextInputAction.done,
                         obscureText: true,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
                           hintText: "Your password",
-                          border: InputBorder.none,
                           prefixIcon: Icon(Icons.lock),
+                          filled: true,
+                          fillColor: kPrimaryLightColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
@@ -146,6 +166,10 @@ class _LoginFormState extends State<LoginForm> {
                                           ContainerApp(user: user),
                                     ),
                                   );
+                                } else {
+                                  setState(() {
+                                    _errorLogin = true;
+                                  });
                                 }
                               }
                             },
