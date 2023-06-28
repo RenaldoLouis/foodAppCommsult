@@ -1,0 +1,129 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_frontend/components/BottomNavigationBar.dart';
+import 'package:flutter_frontend/pages/OrderFood.dart';
+import 'package:flutter_frontend/pages/UserPage.dart';
+import 'package:flutter_frontend/services/product_service.dart';
+import 'package:flutter_frontend/models/product_model.dart';
+import 'package:rive/rive.dart';
+
+import '../../components/AnimatedBar.dart';
+import '../../models/RiveAssets.dart';
+import 'dart:developer' as logger;
+
+class HomePage extends StatefulWidget {
+  final User? user;
+
+  HomePage({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _productService = ProductService();
+  RiveAsset selectedBottomNav = bottomNavs.first;
+  var idTokenResult;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var tempIdTokenResult = await widget.user?.getIdTokenResult(true);
+      setState(() {
+        idTokenResult = tempIdTokenResult;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    const title = 'Product List';
+    return Scaffold(
+      body: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(title),
+        ),
+        body: idTokenResult?.claims['role'] == "user"
+            ? Container(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                  return OrderFoodPage();
+                                }));
+                              },
+                              child: const Text('Order Food'),
+                              style: ElevatedButton.styleFrom(
+                                  shape: StadiumBorder()),
+                            ),
+                          ),
+                          SizedBox(
+                              width:
+                                  16), // Adjust the spacing as per your requirements
+                          Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('Button One'),
+                              style: ElevatedButton.styleFrom(
+                                  shape: StadiumBorder()),
+                            ),
+                          ),
+                          SizedBox(
+                              width:
+                                  16), // Adjust the spacing as per your requirements
+                          Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('Button One'),
+                              style: ElevatedButton.styleFrom(
+                                  shape: StadiumBorder()),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : FutureBuilder<List<Product>>(
+                future: _productService.getProducts(),
+                builder: (context, snapshot) {
+                  var products = snapshot.data ?? [];
+
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  return ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      var product = products[index];
+                      return ListTile(
+                        title: Text(products[index].name),
+                        subtitle: Text('#${product.id} ${product.description}'),
+                        trailing: Text('\$${product.price}'),
+                      );
+                    },
+                  );
+                },
+              ),
+      ),
+    );
+  }
+}

@@ -4,7 +4,7 @@ import 'package:flutter_frontend/pages/BellPage.dart';
 import 'package:flutter_frontend/pages/ChatPage.dart';
 import 'package:flutter_frontend/pages/ContainerApp.dart';
 import 'package:flutter_frontend/pages/SplashScreen.dart';
-import 'package:flutter_frontend/pages/HomePage.dart';
+import 'package:flutter_frontend/pages/HomePage/HomePage.dart';
 import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
 import 'package:flutter_frontend/services/product_service.dart';

@@ -44,7 +44,6 @@ class _SignUpFormState extends State<SignUpForm> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: kPrimaryLightColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: TextFormField(
@@ -59,7 +58,12 @@ class _SignUpFormState extends State<SignUpForm> {
               onSaved: (email) {},
               decoration: InputDecoration(
                 hintText: "Name",
-                border: InputBorder.none,
+                filled: true,
+                fillColor: kPrimaryLightColor,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
                 prefixIcon: Icon(Icons.person),
               ),
             ),
@@ -68,7 +72,6 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: Container(
               decoration: BoxDecoration(
-                color: kPrimaryLightColor,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextFormField(
@@ -81,7 +84,12 @@ class _SignUpFormState extends State<SignUpForm> {
                 cursorColor: kPrimaryColor,
                 decoration: InputDecoration(
                   hintText: "Your Email",
-                  border: InputBorder.none,
+                  filled: true,
+                  fillColor: kPrimaryLightColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
                   prefixIcon: Icon(Icons.email),
                 ),
               ),
@@ -89,7 +97,6 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           Container(
             decoration: BoxDecoration(
-              color: kPrimaryLightColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: TextFormField(
@@ -103,7 +110,12 @@ class _SignUpFormState extends State<SignUpForm> {
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
                 hintText: "Your password",
-                border: InputBorder.none,
+                filled: true,
+                fillColor: kPrimaryLightColor,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
