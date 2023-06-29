@@ -34,9 +34,11 @@ class _HomePageState extends State<HomePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var tempIdTokenResult = await widget.user?.getIdTokenResult(true);
-      setState(() {
-        idTokenResult = tempIdTokenResult;
-      });
+      if (mounted) {
+        setState(() {
+          idTokenResult = tempIdTokenResult;
+        });
+      }
     });
   }
 
@@ -49,80 +51,70 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false,
           title: const Text(title),
         ),
-        body: idTokenResult?.claims['role'] == "user"
-            ? Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                  return OrderFoodPage();
-                                }));
-                              },
-                              child: const Text('Order Food'),
-                              style: ElevatedButton.styleFrom(
-                                  shape: StadiumBorder()),
-                            ),
+        body: FutureBuilder<List<Product>>(
+          future: _productService.getProducts(),
+          builder: (context, snapshot) {
+            var products = snapshot.data ?? [];
+
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return OrderFoodPage(products: products);
+                              }));
+                            },
+                            child: const Text('Order Food'),
+                            style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder()),
                           ),
-                          SizedBox(
-                              width:
-                                  16), // Adjust the spacing as per your requirements
-                          Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Button One'),
-                              style: ElevatedButton.styleFrom(
-                                  shape: StadiumBorder()),
-                            ),
+                        ),
+                        SizedBox(
+                            width:
+                                16), // Adjust the spacing as per your requirements
+                        Expanded(
+                          flex: 1,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('List Table'),
+                            style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder()),
                           ),
-                          SizedBox(
-                              width:
-                                  16), // Adjust the spacing as per your requirements
-                          Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Button One'),
-                              style: ElevatedButton.styleFrom(
-                                  shape: StadiumBorder()),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                            width:
+                                16), // Adjust the spacing as per your requirements
+                        idTokenResult?.claims['role'] == "user"
+                            ? Container()
+                            : Expanded(
+                                flex: 1,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('List Users'),
+                                  style: ElevatedButton.styleFrom(
+                                      shape: StadiumBorder()),
+                                ),
+                              ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            : FutureBuilder<List<Product>>(
-                future: _productService.getProducts(),
-                builder: (context, snapshot) {
-                  var products = snapshot.data ?? [];
-
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
-                  return ListView.builder(
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      var product = products[index];
-                      return ListTile(
-                        title: Text(products[index].name),
-                        subtitle: Text('#${product.id} ${product.description}'),
-                        trailing: Text('\$${product.price}'),
-                      );
-                    },
-                  );
-                },
+                  ),
+                ],
               ),
+            );
+          },
+        ),
       ),
     );
   }

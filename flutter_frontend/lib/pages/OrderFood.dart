@@ -9,7 +9,12 @@ import 'package:rive/rive.dart';
 import 'dart:developer' as logger;
 
 class OrderFoodPage extends StatefulWidget {
-  const OrderFoodPage({Key? key}) : super(key: key);
+  final List<Product>? products;
+
+  const OrderFoodPage({
+    Key? key,
+    required this.products,
+  }) : super(key: key);
 
   @override
   State<OrderFoodPage> createState() => _OrderFoodPageState();
@@ -22,11 +27,16 @@ class _OrderFoodPageState extends State<OrderFoodPage> {
       appBar: AppBar(
         title: Text('OrderFood Page'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text('List of food Here'),
-        ),
+      body: ListView.builder(
+        itemCount: widget.products?.length,
+        itemBuilder: (context, index) {
+          var product = widget.products![index];
+          return ListTile(
+            title: Text(widget.products![index].name),
+            subtitle: Text('#${product.id} ${product.description}'),
+            trailing: Text('\$${product.price}'),
+          );
+        },
       ),
     );
   }
