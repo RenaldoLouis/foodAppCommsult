@@ -10,6 +10,8 @@ _token() async {
   final user = await FirebaseAuth.instance.currentUser!;
   final idToken = await user.getIdToken();
   final token = idToken;
+  logger.log("idToken $idToken");
+  print("idToken $idToken");
   return 'Bearer $token';
 }
 

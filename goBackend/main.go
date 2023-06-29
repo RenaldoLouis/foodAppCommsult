@@ -24,6 +24,19 @@ func productsHandler(c *gin.Context) {
 	})
 }
 
+func saveProductsHandler(c *gin.Context) {
+	var data entity.Product
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+		return
+	}
+	products, _ := productRepo.Save(&data)
+
+	c.JSON(200, gin.H{
+		"products": products,
+	})
+}
+
 func userRoleHandler(c *gin.Context) {
 	var data entity.User
 	if err := c.ShouldBindJSON(&data); err != nil {
@@ -36,16 +49,15 @@ func userRoleHandler(c *gin.Context) {
 	})
 }
 
-func saveProductsHandler(c *gin.Context) {
-	var data entity.Product
-	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
-		return
-	}
-	products, _ := productRepo.Save(&data)
-
+func getListOfUser(c *gin.Context) {
+	// var data entity.User
+	// if err := c.ShouldBindJSON(&data); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+	// 	return
+	// }
+	users, _ := userRepo.GetListOfUsers(c)
 	c.JSON(200, gin.H{
-		"products": products,
+		"products": users,
 	})
 }
 
@@ -71,5 +83,6 @@ func main() {
 	authRoutes := r.Group("/").Use(middleware.AuthMiddleware)
 	authRoutes.GET("/products", productsHandler)
 	authRoutes.POST("/products", saveProductsHandler)
+	authRoutes.GET("/users", getListOfUser)
 	r.Run(":5001")
 }

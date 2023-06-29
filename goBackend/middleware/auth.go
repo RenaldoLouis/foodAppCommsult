@@ -11,7 +11,6 @@ import (
 
 // AuthMiddleware : to verify all authorized operations
 func AuthMiddleware(c *gin.Context) {
-	print("testing jalan")
 	firebaseAuth := c.MustGet("firebaseAuth").(*auth.Client)
 	authorizationToken := c.GetHeader("Authorization")
 	idToken := strings.TrimSpace(strings.Replace(authorizationToken, "Bearer", "", 1))
