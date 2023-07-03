@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_frontend/models/product_model.dart';
 import 'dart:developer' as logger;
 
+import 'package:flutter_frontend/models/user_model.dart';
+
 _token() async {
   // Fetch the currentUser, and then get its id token
   final user = await FirebaseAuth.instance.currentUser!;
@@ -39,5 +41,36 @@ class UserService {
     }
 
     return null;
+  }
+
+  Future<List<UserModel>> getUsers() async {
+    String userRoleURL = '';
+    if (Platform.isAndroid) {
+      userRoleURL = 'http://10.0.2.2:5001/users';
+      // Android-specific code
+    } else if (Platform.isIOS) {
+      userRoleURL = 'http://127.0.0.1:5001/users';
+      // iOS-specific code
+    }
+
+    Map<String, dynamic> header = {
+      'Authorization': await _token(),
+    };
+
+    List<UserModel> users;
+
+    try {
+      final res = await dio.get(userRoleURL, options: Options(headers: header));
+      users = res.data['users']
+          .map<UserModel>(
+            (item) => UserModel.fromJson(item),
+          )
+          .toList();
+    } on DioError catch (e) {
+      users = [];
+      logger.log('error Set user Roles: ${e.response?.data}');
+    }
+
+    return users;
   }
 }

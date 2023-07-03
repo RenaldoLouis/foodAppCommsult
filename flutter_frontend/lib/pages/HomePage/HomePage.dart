@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
+import 'package:flutter_frontend/models/user_model.dart';
 import 'package:flutter_frontend/pages/OrderFood.dart';
+import 'package:flutter_frontend/pages/UserListPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
 import 'package:flutter_frontend/services/product_service.dart';
 import 'package:flutter_frontend/models/product_model.dart';
+import 'package:flutter_frontend/services/user_service.dart';
 import 'package:rive/rive.dart';
 
 import '../../components/AnimatedBar.dart';
@@ -25,6 +28,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _productService = ProductService();
+  final _userService = UserService();
   RiveAsset selectedBottomNav = bottomNavs.first;
   var idTokenResult;
 
@@ -51,13 +55,22 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false,
           title: const Text(title),
         ),
-        body: FutureBuilder<List<Product>>(
-          future: _productService.getProducts(),
+        body: FutureBuilder<List<dynamic>>(
+          future: Future.wait([
+            _productService.getProducts(),
+            _userService.getUsers(),
+          ]),
           builder: (context, snapshot) {
-            var products = snapshot.data ?? [];
+            var products;
+            var users;
 
-            if (!snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError || !snapshot.hasData) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              products = snapshot.data![0] as List<Product>;
+              users = snapshot.data![1] as List<UserModel>;
             }
 
             return Container(
@@ -101,7 +114,12 @@ class _HomePageState extends State<HomePage> {
                             : Expanded(
                                 flex: 1,
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                      return UserListPage(users: users);
+                                    }));
+                                  },
                                   child: const Text('List Users'),
                                   style: ElevatedButton.styleFrom(
                                       shape: StadiumBorder()),

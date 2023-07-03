@@ -57,7 +57,7 @@ func getListOfUser(c *gin.Context) {
 	// }
 	users, _ := userRepo.GetListOfUsers(c)
 	c.JSON(200, gin.H{
-		"products": users,
+		"users": users,
 	})
 }
 
