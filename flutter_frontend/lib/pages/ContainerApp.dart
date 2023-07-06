@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/AnimatedBar.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/models/RiveAssets.dart';
+import 'package:flutter_frontend/models/chat_user.dart';
 import 'package:flutter_frontend/pages/BellPage.dart';
 import 'package:flutter_frontend/pages/ChatPage.dart';
 import 'package:flutter_frontend/pages/HomePage/HomePage.dart';
@@ -24,6 +25,8 @@ class ContainerApp extends StatefulWidget {
 }
 
 class _ContainerAppState extends State<ContainerApp> {
+  final firebaseAuth = FirebaseAuth.instance;
+
   RiveAsset selectedBottomNav = bottomNavs.first;
 
   int _currentIndex = 0;
@@ -31,7 +34,12 @@ class _ContainerAppState extends State<ContainerApp> {
     HomePage(
       user: widget.user,
     ),
-    ChatPage(),
+    ChatPage(
+      peerId: widget.user!.uid,
+      peerAvatar: widget.user!.photoURL,
+      peerNickname: widget.user!.displayName,
+      userAvatar: widget.user!.photoURL,
+    ),
     Userpage(
       user: widget.user,
     ),

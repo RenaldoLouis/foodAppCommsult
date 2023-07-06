@@ -1,0 +1,61 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_frontend/models/chat_messages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ChatProvider {
+  final SharedPreferences prefs;
+  final FirebaseFirestore firebaseFirestore;
+  final FirebaseStorage firebaseStorage;
+
+  ChatProvider(
+      {required this.firebaseFirestore,
+      required this.prefs,
+      required this.firebaseStorage});
+
+  UploadTask uploadImageFile(File image, String filename) {
+    Reference reference = firebaseStorage.ref().child(filename);
+    UploadTask uploadTask = reference.putFile(image);
+    return uploadTask;
+  }
+
+  Future<void> updateFirestoreData(
+      String collectionPath, String docPath, Map<String, dynamic> dataUpdate) {
+    return firebaseFirestore
+        .collection(collectionPath)
+        .doc(docPath)
+        .update(dataUpdate);
+  }
+
+  Stream<QuerySnapshot> getChatMessage(String groupChatId, int limit) {
+    return firebaseFirestore
+        .collection("messages")
+        .doc(groupChatId)
+        .collection(groupChatId)
+        .orderBy("timestamp", descending: true)
+        .limit(limit)
+        .snapshots();
+  }
+
+  void sendChatMessage(String content, int type, String groupChatId,
+      String currentUserId, String peerId) {
+    DocumentReference documentReference = firebaseFirestore
+        .collection("messages")
+        .doc(groupChatId)
+        .collection(groupChatId)
+        .doc(DateTime.now().millisecondsSinceEpoch.toString());
+    ChatMessages chatMessages = ChatMessages(
+        idFrom: currentUserId,
+        idTo: peerId,
+        timestamp: DateTime.now().millisecondsSinceEpoch.toString(),
+        content: content,
+        type: type);
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      transaction.set(documentReference, chatMessages.toJson());
+    });
+  }
+}
