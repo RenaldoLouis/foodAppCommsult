@@ -12,6 +12,7 @@ import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
 import 'package:flutter_frontend/providers/auth_provider.dart';
 import 'package:flutter_frontend/providers/chat_provider.dart';
+import 'package:flutter_frontend/providers/profile_provider.dart';
 import 'package:flutter_frontend/services/product_service.dart';
 import 'package:flutter_frontend/models/product_model.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +66,12 @@ class _MyAppState extends State<MyApp> {
               prefs: widget.prefs,
               firebaseStorage: firebaseStorage),
         ),
+        Provider(
+          create: (_) => ProfileProvider(
+              firebaseFirestore: firebaseFirestore,
+              prefs: widget.prefs,
+              firebaseStorage: firebaseStorage),
+        ),
       ],
       child: MaterialApp(
         initialRoute: '/',
@@ -75,7 +82,7 @@ class _MyAppState extends State<MyApp> {
         //   '/bell': (context) => BellPage(),
         //   '/chat': (context) => ChatPage(),
         // },
-        title: title,
+        // title: title,
         home: SplashScreen(),
       ),
     );

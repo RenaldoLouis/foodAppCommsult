@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/pages/Login/login_screen.dart';
 import 'package:flutter_frontend/providers/auth_provider.dart';
+import 'package:flutter_frontend/providers/profile_provider.dart';
 import 'package:flutter_frontend/providers/chat_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_frontend/Constants/all_constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatPage extends StatefulWidget {
   final String peerId;
@@ -102,15 +104,34 @@ class _ChatPageState extends State<ChatPage> {
         currentUserId, {FirestoreConstants.chattingWith: widget.peerId});
   }
 
+  void _callPhoneNumber(String phoneNumber) async {
+    var url = Uri.parse('tel:+1-555-010-999');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Error Occurred';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: SafeArea(
-      //   child: BottomNavigationBarCustom(),
-      // ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('ChatPage'),
+        title: Text('Chatting with ${widget.peerNickname}'.trim()),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ProfileProvider profileProvider;
+              profileProvider = context.read<ProfileProvider>();
+              String callPhoneNumber =
+                  profileProvider.getPrefs(FirestoreConstants.phoneNumber) ??
+                      "";
+              _callPhoneNumber(callPhoneNumber);
+            },
+            icon: const Icon(Icons.phone),
+          ),
+        ],
       ),
       body: Center(
         child: ElevatedButton(

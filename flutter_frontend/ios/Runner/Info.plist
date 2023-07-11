@@ -48,6 +48,10 @@
 				<array>
 					<string>com.googleusercontent.apps.834513047240-4kmqrejt243lt28rrds06kvt6m9vulso</string>
 				</array>
+				 <key>LSApplicationQueriesSchemes</key>
+				<array>
+					<string>tel</string>
+				</array>
 			</dict>
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
