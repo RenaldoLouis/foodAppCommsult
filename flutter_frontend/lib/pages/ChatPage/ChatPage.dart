@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/pages/Login/login_screen.dart';
+import 'package:flutter_frontend/pages/ChatPage/BuildMessageInput.dart';
 import 'package:flutter_frontend/providers/auth_provider.dart';
 import 'package:flutter_frontend/providers/profile_provider.dart';
 import 'package:flutter_frontend/providers/chat_provider.dart';
@@ -38,10 +39,8 @@ class _ChatPageState extends State<ChatPage> {
   final int _limitIncrement = 20;
   String groupChatId = '';
 
-  File? imageFile;
   bool isLoading = false;
   bool isShowSticker = false;
-  String imageUrl = '';
 
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -58,6 +57,7 @@ class _ChatPageState extends State<ChatPage> {
 
     focusNode.addListener(onFocusChanged);
     scrollController.addListener(_scrollListener);
+    currentUserId = "";
     // readLocal();
   }
 
@@ -133,12 +133,23 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ],
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/');
-          },
-          child: Text('Tap Untuk ke AboutPage'),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_8),
+          child: Column(
+            children: [
+              // buildListMessage(),
+              BuildMessageInput(
+                isLoading: isLoading,
+                chatProvider: chatProvider,
+                textEditingController: textEditingController,
+                groupChatId: groupChatId,
+                currentUserId: currentUserId,
+                scrollController: scrollController,
+                peerId: widget.peerId,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/pages/BellPage.dart';
-import 'package:flutter_frontend/pages/ChatPage.dart';
+import 'package:flutter_frontend/pages/ChatPage/ChatPage.dart';
 import 'package:flutter_frontend/pages/ContainerApp.dart';
 import 'package:flutter_frontend/pages/SplashScreen.dart';
 import 'package:flutter_frontend/pages/HomePage/HomePage.dart';

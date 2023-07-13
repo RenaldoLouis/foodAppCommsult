@@ -5,7 +5,7 @@ import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/models/RiveAssets.dart';
 import 'package:flutter_frontend/models/chat_user.dart';
 import 'package:flutter_frontend/pages/BellPage.dart';
-import 'package:flutter_frontend/pages/ChatPage.dart';
+import 'package:flutter_frontend/pages/ChatPage/ChatPage.dart';
 import 'package:flutter_frontend/pages/HomePage/HomePage.dart';
 import 'package:flutter_frontend/pages/SettingsPage.dart';
 import 'package:flutter_frontend/pages/UserPage.dart';
