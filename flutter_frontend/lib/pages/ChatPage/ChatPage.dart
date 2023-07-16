@@ -8,6 +8,7 @@ import 'package:flutter_frontend/pages/ChatPage/BuildMessageInput.dart';
 import 'package:flutter_frontend/providers/auth_provider.dart';
 import 'package:flutter_frontend/providers/profile_provider.dart';
 import 'package:flutter_frontend/providers/chat_provider.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_frontend/Constants/all_constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -105,12 +106,15 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void _callPhoneNumber(String phoneNumber) async {
-    var url = Uri.parse('tel:+1-555-010-999');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Error Occurred';
-    }
+    var phoneNumber = "1555010999";
+    await FlutterPhoneDirectCaller.callNumber(phoneNumber);
+
+    // var url = Uri.parse('tel:+1-555-010-999');
+    // if (await canLaunchUrl(url)) {
+    //   await launchUrl(url);
+    // } else {
+    //   throw 'Error Occurred';
+    // }
   }
 
   @override
