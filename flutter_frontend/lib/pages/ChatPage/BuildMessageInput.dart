@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/Constants/all_constants.dart';
@@ -10,7 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class BuildMessageInput extends StatefulWidget {
   bool isLoading;
   late ChatProvider chatProvider;
-  late TextEditingController textEditingController;
+  TextEditingController textEditingController;
   String groupChatId;
   final String currentUserId;
   String peerId;
@@ -20,7 +21,7 @@ class BuildMessageInput extends StatefulWidget {
     super.key,
     required this.isLoading,
     required ChatProvider chatProvider,
-    required TextEditingController textEditingController,
+    required this.textEditingController,
     required this.groupChatId,
     required this.currentUserId,
     required this.scrollController,
@@ -32,6 +33,8 @@ class BuildMessageInput extends StatefulWidget {
 }
 
 class _BuildMessageInputState extends State<BuildMessageInput> {
+  final FocusNode focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     File? imageFile;
@@ -70,16 +73,38 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
     }
 
     Future getImage() async {
-      ImagePicker imagePicker = ImagePicker();
-      XFile? pickedFile;
-      pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        imageFile = File(pickedFile.path);
-        if (imageFile != null) {
-          setState(() {
-            widget.isLoading = true;
-          });
-          uploadImageFile();
+      if (Platform.isAndroid) {
+        ImagePicker imagePicker = ImagePicker();
+        XFile? pickedFile;
+        pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+        if (pickedFile != null) {
+          imageFile = File(pickedFile.path);
+          if (imageFile != null) {
+            setState(() {
+              widget.isLoading = true;
+            });
+            uploadImageFile();
+          }
+        }
+      } else {
+        FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+        if (result?.files.single.path != null) {
+          // File? file = File(result?.files.single.path);
+          String? pathString = result?.files.single.path;
+
+          File? file = File(pathString!);
+          if (file != null) {
+            imageFile = File(file.path);
+            if (imageFile != null) {
+              setState(() {
+                widget.isLoading = true;
+              });
+              uploadImageFile();
+            }
+          }
+        } else {
+          // User canceled the picker
         }
       }
     }
@@ -104,19 +129,20 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
               color: AppColors.white,
             ),
           ),
-          // Flexible(
-          //     child: TextField(
-          //   focusNode: focusNode,
-          //   textInputAction: TextInputAction.send,
-          //   keyboardType: TextInputType.text,
-          //   textCapitalization: TextCapitalization.sentences,
-          //   controller: textEditingController,
-          //   decoration:
-          //       kTextInputDecoration.copyWith(hintText: 'write here...'),
-          //   onSubmitted: (value) {
-          //     onSendMessage(textEditingController.text, MessageType.text);
-          //   },
-          // )),
+          Flexible(
+              child: TextField(
+            focusNode: focusNode,
+            textInputAction: TextInputAction.send,
+            keyboardType: TextInputType.text,
+            textCapitalization: TextCapitalization.sentences,
+            controller: widget.textEditingController,
+            decoration:
+                kTextInputDecoration.copyWith(hintText: 'write here...'),
+            onSubmitted: (value) {
+              onSendMessage(
+                  widget.textEditingController.text, MessageType.text);
+            },
+          )),
           // Container(
           //   margin: const EdgeInsets.only(left: Sizes.dimen_4),
           //   decoration: BoxDecoration(
