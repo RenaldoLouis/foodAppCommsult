@@ -35,6 +35,7 @@ class _ContainerAppState extends State<ContainerApp> {
       user: widget.user,
     ),
     ChatPage(
+      userUid: widget.user!.uid,
       peerId: widget.user!.uid,
       peerAvatar: widget.user!.photoURL,
       peerNickname: widget.user!.displayName,

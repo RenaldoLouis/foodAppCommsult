@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
 import 'package:flutter_frontend/pages/Login/login_screen.dart';
@@ -12,19 +13,22 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_frontend/Constants/all_constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:developer' as logger;
 
 class ChatPage extends StatefulWidget {
   final String peerId;
   final String? peerAvatar;
   final String? peerNickname;
   final String? userAvatar;
+  final String userUid;
 
   const ChatPage(
       {Key? key,
       required this.peerNickname,
       required this.peerAvatar,
       required this.peerId,
-      required this.userAvatar})
+      required this.userAvatar,
+      required this.userUid})
       : super(key: key);
 
   @override
@@ -58,7 +62,7 @@ class _ChatPageState extends State<ChatPage> {
 
     focusNode.addListener(onFocusChanged);
     scrollController.addListener(_scrollListener);
-    currentUserId = "";
+    currentUserId = widget.userUid;
     // readLocal();
   }
 
@@ -89,18 +93,19 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void readLocal() {
-    if (authProvider.getFirebaseUserId()?.isNotEmpty == true) {
-      currentUserId = authProvider.getFirebaseUserId()!;
-    } else {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-          (Route<dynamic> route) => false);
-    }
-    if (currentUserId.compareTo(widget.peerId) > 0) {
-      groupChatId = '$currentUserId - ${widget.peerId}';
-    } else {
-      groupChatId = '${widget.peerId} - $currentUserId';
-    }
+    // if (authProvider.getFirebaseUserId()?.isNotEmpty == true) {
+    //   currentUserId = authProvider.getFirebaseUserId()!;
+    // } else {
+    //   //this part is the problem
+    //   Navigator.of(context).pushAndRemoveUntil(
+    //       MaterialPageRoute(builder: (context) => const LoginScreen()),
+    //       (Route<dynamic> route) => false);
+    // }
+    // if (currentUserId.compareTo(widget.peerId) > 0) {
+    groupChatId = '$currentUserId - ${widget.peerId}';
+    // } else {
+    // groupChatId = '${widget.peerId} - $currentUserId';
+    // }
     chatProvider.updateFirestoreData(FirestoreConstants.pathUserCollection,
         currentUserId, {FirestoreConstants.chattingWith: widget.peerId});
   }
@@ -145,7 +150,6 @@ class _ChatPageState extends State<ChatPage> {
               // buildListMessage(),
               BuildMessageInput(
                 isLoading: isLoading,
-                chatProvider: chatProvider,
                 textEditingController: textEditingController,
                 groupChatId: groupChatId,
                 currentUserId: currentUserId,

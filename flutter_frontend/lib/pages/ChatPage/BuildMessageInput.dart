@@ -7,10 +7,10 @@ import 'package:flutter_frontend/providers/chat_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_frontend/models/chat_messages.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class BuildMessageInput extends StatefulWidget {
   bool isLoading;
-  late ChatProvider chatProvider;
   TextEditingController textEditingController;
   String groupChatId;
   final String currentUserId;
@@ -20,7 +20,6 @@ class BuildMessageInput extends StatefulWidget {
   BuildMessageInput({
     super.key,
     required this.isLoading,
-    required ChatProvider chatProvider,
     required this.textEditingController,
     required this.groupChatId,
     required this.currentUserId,
@@ -34,6 +33,13 @@ class BuildMessageInput extends StatefulWidget {
 
 class _BuildMessageInputState extends State<BuildMessageInput> {
   final FocusNode focusNode = FocusNode();
+  late ChatProvider chatProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    chatProvider = context.read<ChatProvider>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +49,7 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
     void onSendMessage(String content, int type) {
       if (content.trim().isNotEmpty) {
         widget.textEditingController.clear();
-        widget.chatProvider.sendChatMessage(content, type, widget.groupChatId,
+        chatProvider.sendChatMessage(content, type, widget.groupChatId,
             widget.currentUserId, widget.peerId);
         widget.scrollController.animateTo(0,
             duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
@@ -56,7 +62,7 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
     void uploadImageFile() async {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       UploadTask uploadTask =
-          widget.chatProvider.uploadImageFile(imageFile!, fileName);
+          chatProvider.uploadImageFile(imageFile!, fileName);
       try {
         TaskSnapshot snapshot = await uploadTask;
         imageUrl = await snapshot.ref.getDownloadURL();
