@@ -86,7 +86,7 @@ func (*repo) GetListOfUsers(c *gin.Context) ([]entity.UserListResponse, error) {
 	role := claims["role"]
 
 	if role != "admin" {
-		log.Fatalf("User not allowed to acces this data")
+		log.Printf("User not allowed to acces this data")
 	}
 
 	iter := authClient.Users(ctx, "")

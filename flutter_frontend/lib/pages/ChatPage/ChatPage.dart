@@ -63,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
     focusNode.addListener(onFocusChanged);
     scrollController.addListener(_scrollListener);
     currentUserId = widget.userUid;
-    // readLocal();
+    readLocal();
   }
 
   bool isMessageSent(int index) {
@@ -102,12 +102,18 @@ class _ChatPageState extends State<ChatPage> {
     //       (Route<dynamic> route) => false);
     // }
     // if (currentUserId.compareTo(widget.peerId) > 0) {
-    groupChatId = '$currentUserId - ${widget.peerId}';
+    setState(() {
+      groupChatId = '$currentUserId - ${widget.peerId}';
+    });
     // } else {
     // groupChatId = '${widget.peerId} - $currentUserId';
     // }
-    chatProvider.updateFirestoreData(FirestoreConstants.pathUserCollection,
-        currentUserId, {FirestoreConstants.chattingWith: widget.peerId});
+
+    // should be chatting with peer id but for now we hardcoded to me(admin) it cuz chat betwen user not possbile
+    chatProvider.updateFirestoreData(
+        FirestoreConstants.pathUserCollection,
+        currentUserId,
+        {FirestoreConstants.chattingWith: 'AJlEJEsybdVa4DbrjNmIwPRPdz02'});
   }
 
   void _callPhoneNumber(String phoneNumber) async {

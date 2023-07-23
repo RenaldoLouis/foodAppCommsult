@@ -16,18 +16,18 @@ class SettingsPage extends StatelessWidget {
         title: Text('Settings Page'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => LoginScreen(),
-              ),
-            );
-          },
-          child: Text('Signout'),
-        ),
-      ),
+          // child: ElevatedButton(
+          //   onPressed: () {
+          //     FirebaseAuth.instance.signOut();
+          //     Navigator.of(context).pushReplacement(
+          //       MaterialPageRoute(
+          //         builder: (context) => LoginScreen(),
+          //       ),
+          //     );
+          //   },
+          //   child: Text('Signout'),
+          // ),
+          ),
     );
   }
 }

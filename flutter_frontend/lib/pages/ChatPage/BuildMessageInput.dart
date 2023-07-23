@@ -50,7 +50,7 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
       if (content.trim().isNotEmpty) {
         widget.textEditingController.clear();
         chatProvider.sendChatMessage(content, type, widget.groupChatId,
-            widget.currentUserId, widget.peerId);
+            widget.currentUserId, "AJlEJEsybdVa4DbrjNmIwPRPdz02");
         widget.scrollController.animateTo(0,
             duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       } else {
@@ -149,20 +149,21 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
                   widget.textEditingController.text, MessageType.text);
             },
           )),
-          // Container(
-          //   margin: const EdgeInsets.only(left: Sizes.dimen_4),
-          //   decoration: BoxDecoration(
-          //     color: AppColors.burgundy,
-          //     borderRadius: BorderRadius.circular(Sizes.dimen_30),
-          //   ),
-          //   child: IconButton(
-          //     onPressed: () {
-          //       onSendMessage(textEditingController.text, MessageType.text);
-          //     },
-          //     icon: const Icon(Icons.send_rounded),
-          //     color: AppColors.white,
-          //   ),
-          // ),
+          Container(
+            margin: const EdgeInsets.only(left: Sizes.dimen_4),
+            decoration: BoxDecoration(
+              color: AppColors.burgundy,
+              borderRadius: BorderRadius.circular(Sizes.dimen_30),
+            ),
+            child: IconButton(
+              onPressed: () {
+                onSendMessage(
+                    widget.textEditingController.text, MessageType.text);
+              },
+              icon: const Icon(Icons.send_rounded),
+              color: AppColors.white,
+            ),
+          ),
         ],
       ),
     );
