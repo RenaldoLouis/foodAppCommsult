@@ -40,8 +40,8 @@ class _ChatPageState extends State<ChatPage> {
 
   List<QueryDocumentSnapshot> listMessages = [];
 
-  int _limit = 20;
-  final int _limitIncrement = 20;
+  int limit = 20;
+  final int limitIncrement = 20;
   String groupChatId = '';
 
   bool isLoading = false;
@@ -87,7 +87,7 @@ class _ChatPageState extends State<ChatPage> {
     if (scrollController.offset >= scrollController.position.maxScrollExtent &&
         !scrollController.position.outOfRange) {
       setState(() {
-        _limit += _limitIncrement;
+        limit += limitIncrement;
       });
     }
   }
