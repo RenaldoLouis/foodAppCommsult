@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/components/BottomNavigationBar.dart';
+import 'package:flutter_frontend/pages/ChatPage/BuildListMessage.dart';
 import 'package:flutter_frontend/pages/Login/login_screen.dart';
 import 'package:flutter_frontend/pages/ChatPage/BuildMessageInput.dart';
 import 'package:flutter_frontend/providers/auth_provider.dart';
@@ -64,6 +65,18 @@ class _ChatPageState extends State<ChatPage> {
     scrollController.addListener(_scrollListener);
     currentUserId = widget.userUid;
     readLocal();
+  }
+
+  // checking if received message
+  bool isMessageReceived(int index) {
+    if ((index > 0 &&
+            listMessages[index - 1].get(FirestoreConstants.idFrom) ==
+                currentUserId) ||
+        index == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   bool isMessageSent(int index) {
@@ -153,7 +166,16 @@ class _ChatPageState extends State<ChatPage> {
           padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_8),
           child: Column(
             children: [
-              // buildListMessage(),
+              BuildListMessage(
+                  groupChatId: groupChatId,
+                  chatProvider: chatProvider,
+                  scrollController: scrollController,
+                  limit: limit,
+                  currentUserId: currentUserId,
+                  isMessageSent: isMessageSent,
+                  isMessageReceived: isMessageReceived,
+                  userAvatar: widget.userAvatar,
+                  peerAvatar: widget.peerAvatar),
               BuildMessageInput(
                 isLoading: isLoading,
                 textEditingController: textEditingController,
