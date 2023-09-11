@@ -6,6 +6,7 @@ class UserModel {
   final String Name;
   final String Role;
   final String Email;
+  final String UID;
 
   const UserModel({
     this.EmailVerified = false,
@@ -13,6 +14,7 @@ class UserModel {
     this.Name = "",
     this.Role = "",
     this.Email = "",
+    this.UID = "",
   });
 
   factory UserModel.fromJson(Map json) {
@@ -22,6 +24,7 @@ class UserModel {
       Name: json['Name'],
       Role: json['Role'],
       Email: json['Email'],
+      UID: json['UID'],
     );
   }
 }

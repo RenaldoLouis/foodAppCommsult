@@ -105,6 +105,7 @@ func (*repo) GetListOfUsers(c *gin.Context) ([]entity.UserListResponse, error) {
 			Name:          user.DisplayName,
 			Role:          user.CustomClaims["role"].(string),
 			Email:         user.Email,
+			UID:           user.UID,
 		}
 		users = append(users, userData)
 		log.Printf("read user user: %v\n", user)

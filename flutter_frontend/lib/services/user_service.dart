@@ -44,13 +44,11 @@ class UserService {
   }
 
   Future<List<UserModel>> getUsers() async {
-    String userRoleURL = '';
+    String getUsersURL = '';
     if (Platform.isAndroid) {
-      userRoleURL = 'http://10.0.2.2:5001/users';
-      // Android-specific code
+      getUsersURL = 'http://10.0.2.2:5001/users';
     } else if (Platform.isIOS) {
-      userRoleURL = 'http://127.0.0.1:5001/users';
-      // iOS-specific code
+      getUsersURL = 'http://127.0.0.1:5001/users';
     }
 
     Map<String, dynamic> header = {
@@ -60,7 +58,7 @@ class UserService {
     List<UserModel> users;
 
     try {
-      final res = await dio.get(userRoleURL, options: Options(headers: header));
+      final res = await dio.get(getUsersURL, options: Options(headers: header));
       users = res.data['users']
           .map<UserModel>(
             (item) => UserModel.fromJson(item),

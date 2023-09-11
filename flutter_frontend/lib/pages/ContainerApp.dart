@@ -41,6 +41,7 @@ class _ContainerAppState extends State<ContainerApp> {
       peerAvatar: widget.user!.photoURL ?? defaultProfileImage,
       peerNickname: "Renald",
       userAvatar: widget.user!.photoURL ?? defaultProfileImage,
+      user: widget.user,
     ),
     Userpage(
       user: widget.user,

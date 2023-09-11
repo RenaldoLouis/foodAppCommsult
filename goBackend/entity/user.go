@@ -11,4 +11,5 @@ type UserListResponse struct {
 	Name          string `json:"Name"`
 	Role          string `json:"Role"`
 	Email         string `json:"Email"`
+	UID           string `json:"UID"`
 }

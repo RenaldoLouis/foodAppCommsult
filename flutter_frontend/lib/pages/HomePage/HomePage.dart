@@ -117,7 +117,8 @@ class _HomePageState extends State<HomePage> {
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                      return UserListPage(users: users);
+                                      return UserListPage(
+                                          users: users, user: widget.user);
                                     }));
                                   },
                                   child: const Text('List Users'),

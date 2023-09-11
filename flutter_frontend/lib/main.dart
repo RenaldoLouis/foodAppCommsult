@@ -50,8 +50,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Product List';
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
@@ -82,7 +80,7 @@ class _MyAppState extends State<MyApp> {
         //   '/bell': (context) => BellPage(),
         //   '/chat': (context) => ChatPage(),
         // },
-        // title: title,
+        // title: "Title Material App",
         home: SplashScreen(),
       ),
     );

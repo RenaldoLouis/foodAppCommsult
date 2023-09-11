@@ -22,6 +22,7 @@ class ChatPage extends StatefulWidget {
   final String? peerNickname;
   final String? userAvatar;
   final String userUid;
+  final User? user;
 
   const ChatPage(
       {Key? key,
@@ -29,6 +30,7 @@ class ChatPage extends StatefulWidget {
       required this.peerAvatar,
       required this.peerId,
       required this.userAvatar,
+      required this.user,
       required this.userUid})
       : super(key: key);
 
@@ -54,6 +56,7 @@ class _ChatPageState extends State<ChatPage> {
 
   late ChatProvider chatProvider;
   late AuthProvider authProvider;
+  var idTokenResult;
 
   @override
   void initState() {
@@ -65,6 +68,15 @@ class _ChatPageState extends State<ChatPage> {
     scrollController.addListener(_scrollListener);
     currentUserId = widget.userUid;
     readLocal();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var tempIdTokenResult = await widget.user?.getIdTokenResult(true);
+      if (mounted) {
+        setState(() {
+          idTokenResult = tempIdTokenResult;
+        });
+      }
+    });
   }
 
   // checking if received message
@@ -150,7 +162,8 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading:
+            idTokenResult?.claims['role'] == "user" ? false : true,
         title: Text('Chatting with ${widget.peerNickname}'.trim()),
         actions: [
           IconButton(
