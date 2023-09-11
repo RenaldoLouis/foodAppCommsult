@@ -51,8 +51,8 @@ class _BuildMessageInputState extends State<BuildMessageInput> {
         widget.textEditingController.clear();
         chatProvider.sendChatMessage(content, type, widget.groupChatId,
             widget.currentUserId, "AJlEJEsybdVa4DbrjNmIwPRPdz02");
-        widget.scrollController.animateTo(0,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+        // widget.scrollController.animateTo(0,
+        //     duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       } else {
         Fluttertoast.showToast(
             msg: 'Nothing to send', backgroundColor: Colors.grey);

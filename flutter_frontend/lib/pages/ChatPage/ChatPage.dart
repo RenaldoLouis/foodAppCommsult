@@ -70,6 +70,7 @@ class _ChatPageState extends State<ChatPage> {
   // checking if received message
   bool isMessageReceived(int index) {
     if ((index > 0 &&
+            listMessages.length > 0 &&
             listMessages[index - 1].get(FirestoreConstants.idFrom) ==
                 currentUserId) ||
         index == 0) {
@@ -80,7 +81,9 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   bool isMessageSent(int index) {
-    if ((index > 0 && listMessages[index - 1].get("idFrom") != currentUserId) ||
+    if ((index > 0 &&
+            listMessages.length > 0 &&
+            listMessages[index - 1].get("idFrom") != currentUserId) ||
         index == 0) {
       return true;
     } else {
@@ -114,13 +117,15 @@ class _ChatPageState extends State<ChatPage> {
     //       MaterialPageRoute(builder: (context) => const LoginScreen()),
     //       (Route<dynamic> route) => false);
     // }
-    // if (currentUserId.compareTo(widget.peerId) > 0) {
-    setState(() {
-      groupChatId = '$currentUserId - ${widget.peerId}';
-    });
-    // } else {
-    // groupChatId = '${widget.peerId} - $currentUserId';
-    // }
+    if (currentUserId.compareTo(widget.peerId) > 0) {
+      setState(() {
+        groupChatId = '$currentUserId - ${widget.peerId}';
+      });
+    } else {
+      setState(() {
+        groupChatId = '${widget.peerId} - $currentUserId';
+      });
+    }
 
     // should be chatting with peer id but for now we hardcoded to me(admin) it cuz chat betwen user not possbile
     chatProvider.updateFirestoreData(
@@ -167,15 +172,17 @@ class _ChatPageState extends State<ChatPage> {
           child: Column(
             children: [
               BuildListMessage(
-                  groupChatId: groupChatId,
-                  chatProvider: chatProvider,
-                  scrollController: scrollController,
-                  limit: limit,
-                  currentUserId: currentUserId,
-                  isMessageSent: isMessageSent,
-                  isMessageReceived: isMessageReceived,
-                  userAvatar: widget.userAvatar,
-                  peerAvatar: widget.peerAvatar),
+                groupChatId: groupChatId,
+                chatProvider: chatProvider,
+                scrollController: scrollController,
+                limit: limit,
+                currentUserId: currentUserId,
+                isMessageSent: isMessageSent,
+                isMessageReceived: isMessageReceived,
+                userAvatar: widget.userAvatar,
+                peerAvatar: widget.peerAvatar,
+                listMessages: listMessages,
+              ),
               BuildMessageInput(
                 isLoading: isLoading,
                 textEditingController: textEditingController,

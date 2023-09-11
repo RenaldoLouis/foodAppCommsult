@@ -26,6 +26,7 @@ class ContainerApp extends StatefulWidget {
 
 class _ContainerAppState extends State<ContainerApp> {
   final firebaseAuth = FirebaseAuth.instance;
+  final defaultProfileImage = "assets/images/profile.png";
 
   RiveAsset selectedBottomNav = bottomNavs.first;
 
@@ -36,10 +37,10 @@ class _ContainerAppState extends State<ContainerApp> {
     ),
     ChatPage(
       userUid: widget.user!.uid,
-      peerId: widget.user!.uid,
-      peerAvatar: widget.user!.photoURL,
-      peerNickname: widget.user!.displayName,
-      userAvatar: widget.user!.photoURL,
+      peerId: "AJlEJEsybdVa4DbrjNmIwPRPdz02",
+      peerAvatar: widget.user!.photoURL ?? defaultProfileImage,
+      peerNickname: "Renald",
+      userAvatar: widget.user!.photoURL ?? defaultProfileImage,
     ),
     Userpage(
       user: widget.user,

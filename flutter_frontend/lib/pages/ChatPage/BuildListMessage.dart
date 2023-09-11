@@ -14,6 +14,7 @@ class BuildListMessage extends StatelessWidget {
   final isMessageReceived;
   final userAvatar;
   final peerAvatar;
+  List<QueryDocumentSnapshot> listMessages;
   BuildListMessage({
     Key? key,
     required this.groupChatId,
@@ -25,11 +26,11 @@ class BuildListMessage extends StatelessWidget {
     required this.isMessageReceived,
     required this.userAvatar,
     required this.peerAvatar,
+    required this.listMessages,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<QueryDocumentSnapshot> listMessages = [];
     return Flexible(
       child: groupChatId.isNotEmpty
           ? StreamBuilder<QuerySnapshot>(
